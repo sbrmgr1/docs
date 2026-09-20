@@ -1,0 +1,1927 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docs - Quality More</title>
+    <link rel="icon" href="logo-mini.png">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="setup.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container main-content">
+      <h1 >
+                <img src="logo.png" alt="Quality More" class="brand-logo">
+      </h1>
+      <div class="card basic-hostname">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#basic-hostname">
+          Basic Setup: Steps to assign hostname to ubuntu
+        </div>
+        <div id="basic-hostname" class="collapse">
+          <div class="card-body">
+            <h6>Step 1: check installed hostname</h6>
+            <div tabindex="0" class=" row mx-0">
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/hosts</pre>
+            </div>
+            <h6>Step 2: change hostname in file below</h6>
+            <div tabindex="0" class=" row mx-0">
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/hostname</pre>
+            </div>
+          </div><!--card-body-->
+        </div>
+      </div><!--basic-hostname-->
+      <div class="card static-ip">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#static-ip">
+          Basic Setup: Steps to assign static ip to ubuntu
+        </div>
+        <div id="static-ip" class="collapse">
+          <div class="card-body">
+                <h6 class="row mx-0">Step 1: Connect your MAC to wifi where your device is going to be connected with static ip</h6>
+                <h6 class="row mx-0">Step 2: Find Default Gateway IP. Now You can see in wifi setting in MAC
+                    after wifi connected.</h6>
+                <h6 class="row mx-0">Step 3: Make Router to Pick other IP range so that it doesn't assign same
+                    ip to other devices</h6>
+                <h6 class="row mx-0">Step 3.1: Specify Static ip for Server</h6>
+                <div class="bg-light-info sticky-top pb-3">
+                    <div class="px-1">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Static IP</label>
+                        <div class="col-sm-10">
+                            <input 
+                            type="text"
+                            pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                            data-replace="[server-static-ip]" class="form-control form-control-sm" id="colFormLabelSm" placeholder="XXX.XXX.XXX.XXX">
+                        </div>
+                    </div>
+                </div>
+                <h6 class="row mx-0">Step 4: Find how many files present for network connection in this path
+                    /etc/netplan/</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo ls /etc/netplan/</pre>
+                </div>
+                <h6 class="row mx-0">Step 5: Edit those file and add the folling content with bold text</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#netplan-source"></pre>
+                </div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#clean-cni-configs-dd"></pre>
+                </div>
+                <h6 class="row mx-0">Step 5.1: Make sure it contains only following content</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#clean-cni-configs-344"></pre>
+                </div>
+                <h6 class="row mx-0">Step 6: To change hostname</h6>
+                
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/hostname</pre>
+                </div>
+                <h6 class="row mx-0">Step 6.1: If you have kubernetes installed then use dns resolver with
+                    /etc/systemd/resolved.conf</h6>
+                <div tabindex="0" class="row mx-0">
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#resolved"></pre>
+                </div>
+                <h6 class="row mx-0">Step 7: And apply (if Kubernetes installed)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo systemctl restart systemd-resolved</pre>
+                </div>
+                <h6 class="row mx-0">Step 8: try again it works or not</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">nslookup smtp.gmail.com</pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--static-ip-->
+
+      <div class="card open-ssl-key-generation">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#open-ssl-key-generation">
+          How to generate open ssl keys
+        </div>
+        <div id="open-ssl-key-generation" class="collapse">
+          <div class="card-body">
+                <h6 class="row mx-0">Run Following command to generate private key</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048</pre>
+                </div>
+                <h6 class="row mx-0">Run to extract public key using private key</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">openssl pkey -in private.key -pubout -out public.key</pre>
+                </div>
+                <h6 class="row mx-0">Run to get private key</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cat private.key</pre>
+                </div>
+                <h6 class="row mx-0">Run to get public key</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cat public.key</pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--open-ssl-key-generation-->
+
+      <div class="card host-list">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#host-list">
+          Basic Setup: Make service to hosts always in /etc/hosts
+        </div>
+        <div id="host-list" class="collapse">
+          <div class="card-body">
+                <h6 class="row mx-0">Step 1: Populate all hosts in texearea like example below</h6>
+                <div class="bg-light-info sticky-top pb-3">
+                    <div class="px-1">
+                        <label for="hostList" class="col-sm-8 col-form-label col-form-label-sm">Host List<br/>
+                            Ex:- "192.XXX.XXX.XXX host1"
+                        </label>
+                        <div class="col-sm-12">
+                            <button type="button" data-duplicate=".duplicate-it" class="btn btn-success btn-sm">+</button>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group mt-3 duplicate-it">
+                                <input
+                                type="text"
+                                required
+                                pattern='&quot;((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s[a-zA-Z0-9\-]+&quot;'
+                                data-replace="[host-lists]" 
+                                class="form-control form-control-sm" 
+                                placeholder='&quot;192.168.1.1 host1&quot;'
+                                name="hostfields[]"/>
+                                <button type="button" data-remove=".duplicate-it" class="input-group-text btn bg-danger btn-sm" disabled>-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="row mx-0">create scripting file to the VM</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano setup-hadoop-hosts.sh</pre>
+                </div>
+                <p>And Paste the content below into setup-hadoop-hosts.sh</p>
+                <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#setup-hadoop-hosts-setup"></pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--host-list-->
+
+      <div class="card for-enable-cgroup">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#for-enable-cgroup">
+          Basic Setup:(Optional) Cgroup Setup for VM (But K8s Requirement)
+        </div>
+        <div id="for-enable-cgroup" class="collapse">
+          <div class="card-body">
+            <div class="col-12">
+                        <h6 class="row mx-0">Open file to enable cgroup_enable (to All machine)</h6>
+                        <div tabindex="0" class="row mx-0" >
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /boot/firmware/cmdline.txt</pre>
+                        </div>
+                        <h6 class="row mx-0">And append to the file to enable cgroup_enable (to all machines)</h6>
+                        <div tabindex="0" class="row mx-0" >
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 systemd.unified_cgroup_hierarchy=0</pre>
+                        </div>
+                        <h6 class="row mx-0">Reboot and see cgroup is enabled or not (to all machines)</h6>
+                        <div tabindex="0" class="row mx-0" >
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cat /sys/fs/cgroup/cgroup.controllers</pre>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 class="row mx-0">(Required only if cgroup is missing)<br />Install kernel built with memory
+                            cgroup support to Ubuntu 25.10 in Raspberry pi 5</h6>
+                        <div tabindex="0" class="row mx-0" >
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#new-kernel"></pre>
+                        </div>
+                    </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--for-enable-cgroup-->
+
+      <div class="card vpn-setup">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#vpn-setup">
+         VPN Setup in VPN Client
+        </div>
+        <div id="vpn-setup" class="collapse">
+          <div class="card-body">
+                    <div class="bg-light-info sticky-top pb-3">
+                        <div class="px-1">
+                            <h6 class="row mx-0">Step 1: Add path of security key in local</h6>
+                            <div class="row mb-3">
+                                <label for="path-of-security-key" class="col-sm-2 col-form-label col-form-label-sm">Security Key in Local</label>
+                                <div class="col-sm-10">
+                                    <input data-replace="[/path/to/local/file]" type="text" class="form-control form-control-sm" id="path-of-security-key" placeholder="[/path/to/local/file]">
+                                </div>
+                            </div>
+                            <h6 class="row mx-0">Step 1: Add VPN Client IP Address</h6>
+                            <div class="row mb-3">
+                                <label for="vpn-client-ip" class="col-sm-2 col-form-label col-form-label-sm">VPN Client IP</label>
+                                <div class="col-sm-10">
+                                    <input 
+                                    pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                                    data-replace="[VPN Client IP]" type="text" class="form-control form-control-sm" id="vpn-client-ip" placeholder="XXX.XXX.XXX.XXX">
+                                </div>
+                            </div>
+                            <h6 class="row mx-0">Step 1: Add VPN Server IP Address</h6>
+                            <div class="row mb-3">
+                                <label for="vpn-server-ip" class="col-sm-2 col-form-label col-form-label-sm">VPN Server Public IP</label>
+                                <div class="col-sm-10">
+                                    <input 
+                                    pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                                    data-replace="[VPN Server IP]" type="text" class="form-control form-control-sm" id="vpn-server-ip" placeholder="XXX.XXX.XXX.XXX">
+                                </div>
+                            </div>
+                            <h6 class="row mx-0">Step 1.1: Add Ports you want to forward</h6>
+                            <div class="row mb-3">
+                                <label for="vpn-server-port-not-to-forward" class="col-sm-2 col-form-label col-form-label-sm">VPN Server Port Not to Forward</label>
+                                <div class="col-sm-10">
+                                    <input 
+                                    pattern="^(\d+)(,\d+)*$"
+                                    data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,88,50">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="row mx-0">Step 2: Move of QM.pem to user directory of client VPN machine</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#scp-to-vpn-client"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 2.1: Login to VPN Client</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#ssh-to-vpn-client"></pre>
+                    </div>
+                    <h6 class="row mx-0"><i>Now you are in VPN client in remote</i></h6>
+                    <h6 class="row mx-0">Step 3: Save VPN Server Url to environment Variable in client</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#vpn-address-exporter"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 4: Set VPN client file name in VPN client</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#vpn-address-exporter-client"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 5: Apply changes in .bashrc</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">source ~/.bashrc</pre>
+                    </div>
+                    <h6 class="row mx-0">Step 6: Install Wireguard</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#install-wireguard"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 7: Stop VPN Client if VPN running already. Following is the command to
+                        see status</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo wg show</pre>
+                    </div>
+                    <h6 class="row mx-0">Step 8: Generate Private Key and Public key for VPN client</h6>
+                    <div>
+                        <i>Watcher service need to start from this step</i>
+                    </div>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">wg genkey | tee /home/ubuntu/client_private.key | wg pubkey > /home/ubuntu/client_public.key</pre>
+                    </div>
+                    <h6 class="row mx-0">Step 9: Modify permission to QM.pem</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo chmod 400 /home/ubuntu/QM.pem</pre>
+                    </div>
+                    <h6 class="row mx-0">Step 10: Generate config file for server for new client connection</h6>
+                        <div class="make-scroll-x row mx-0">
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#config-for-server-for-new-client"></pre>
+                        </div>
+                    <h6 class="row mx-0">Step 11: Upload .conf file to tmp directory of VPN Server</h6>
+                        <div class="make-scroll-x row mx-0">
+                            <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem $conf_fileName ubuntu@${_VPN_SERVER_ADDR}:/tmp/</pre>
+                        </div>
+                    <h6 class="row mx-0">Step 12: Move .conf file in tmp directory to /etc/wireguard of VPN Server
+                    </h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#move-config-to-vpn-server"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 13: Enable VPN in VPN Server to listen from new VPN Client</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#enable-vpn-server-for-new-connection"></pre>
+                    </div>
+
+                    <h6 class="row mx-0">Step 14: Forward traffic to VPN Client network</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#forward-traffic-to-vpn-client"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 15: Run following command to create vpn_client.conf file for VPN
+                    client</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#create-vpn-client-config"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 16: Move .conf file in tmp directory to /etc/wireguard of VPN Client
+                    </h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo mv /tmp/vpn_client.conf /etc/wireguard/ && sudo chown root:root /etc/wireguard/vpn_client.conf && sudo chmod 600 /etc/wireguard/vpn_client.conf</pre>
+                    </div>
+                    <h6 class="row mx-0">Step 17: Enable and restart the wireguard</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#enable-wireguard"></pre>
+                    </div>
+                    <h6 class="row mx-0">Step 18: To check IP table rule in VPN Server from VPN client</h6>
+                    <div tabindex="0" class="row mx-0" >
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo iptables -t nat -L -v -n"</pre>
+                    </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--vpn-setup-->
+
+      <div class="card vpn-watcher">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#vpn-watcher">
+          VPN Watch Service in VPN Client
+        </div>
+        <div id="vpn-watcher" class="collapse">
+            <div class="card-body">
+                <div class="bg-light-info sticky-top">
+                    <div class="px-1">
+                        <h6 class="row mx-0">Step 1: Add VPN Server IP Address</h6>
+                        <div class="row mb-3">
+                            <label for="vpn-server-ip" class="col-sm-2 col-form-label col-form-label-sm">VPN Server Public IP</label>
+                            <div class="col-sm-10">
+                                <input 
+                                pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                                data-replace="[vpn-server-ip]" type="text" class="form-control form-control-sm" id="vpn-server-ip" placeholder="XXX.XXX.XXX.XXX">
+                            </div>
+                        </div>
+                        <h6 class="row mx-0">Step 1.1: Add Ports you want to forward</h6>
+                        <div class="row mb-3">
+                            <label for="vpn-server-port-not-to-forward" class="col-sm-2 col-form-label col-form-label-sm">VPN Server Port Not to Forward</label>
+                            <div class="col-sm-10">
+                                <input 
+                                pattern="^(\d+)(,\d+)*$"
+                                data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,88,50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="row mx-0">Step 1.2: Open script file to to add process for checking VPN live or not</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /home/ubuntu/wg_handshake_check.sh</pre>
+                </div>
+                <h6 class="row mx-0">Step 2: Add following content to file /home/ubuntu/wg_handshake_check.sh
+                </h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#wg-script-for-vpn"></pre>
+                    </div>
+                <h6 class="row mx-0">And Give execution permission to file</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo chmod +x /home/ubuntu/wg_handshake_check.sh</pre>
+                </div>
+                <h6 class="row mx-0">Step 5: Create log file</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo touch /home/ubuntu/wg_check.log && sudo chown ubuntu:ubuntu /home/ubuntu/wg_check.log && sudo chmod 644 /home/ubuntu/wg_check.log</pre>
+                    </div>
+                <h6 class="row mx-0">Step 6: Create logrotate config to delete old logs</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/logrotate.d/wg_check</pre>
+                </div>
+                <div>And add following config</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#delete-old-logs"></pre>
+                </div>
+                <h6 class="row mx-0">Step 7: Test rotation</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo logrotate -f /etc/logrotate.d/wg_check</pre>
+                </div>
+                <h6 class="row mx-0">Step 3: Open a wg_check.service file to run wg_handshake_check.sh</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/systemd/system/wg_check.service</pre>
+                </div>
+                <h6 class="row mx-0">And add following content to /etc/systemd/system/wg_check.service</h6>
+                    <div class="make-scroll-x row mx-0">
+                        <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#wireguard-connection-checking-svc"></pre>
+                    </div>
+                <h6 class="row mx-0">Step 4: Open a wg_check.timer file to trigger wg_check.service</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /etc/systemd/system/wg_check.timer</pre>
+                </div>
+                <h6 class="row mx-0">And add following content to /etc/systemd/system/wg_check.timer</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#wg-checker-timer"></pre>
+                </div>
+                <h6 class="row mx-0">Step 4: Start service and Timer</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#start-svc-n-timer"></pre>
+                </div>
+                <h6 class="row mx-0">Step 5: Check Service logs</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">tail -f /home/ubuntu/wg_check.log</pre>
+                </div>
+                <h6 class="row mx-0">Step 5: Check Service logs alternative</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo journalctl -u wg_check.service -f</pre>
+                </div>
+                <h6 class="row mx-0">Step 6: (Optional) to check ip table rule in VPN server</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo iptables -t nat -L -v -n --line-numbers</pre>
+                </div>
+                <h6 class="row mx-0">(Optional) to stop timer to check service</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo systemctl disable --now wg_check.timer</pre>
+                </div>
+                <h6 class="row mx-0">(Optional) to stop timer to check service</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo systemctl stop wg_check.service</pre>
+                </div>
+            </div> <!-- card-body -->
+        </div>
+      </div> <!--vpn-watcher-->
+
+      <div class="card mongo-backup">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#mongo-backup">
+           Mongo restore/dump/export
+        </div>
+        <div id="mongo-backup" class="collapse">
+          <div class="card-body">
+            <h6 class="row mx-0">Monitor and Maintain the Model</h6>
+            <h6 class="row mx-0">Step 1: Add Address of Mongo Server</h6>
+            <div class="bg-light-info sticky-top pb-3">
+                <div class="px-1">
+                    <label for="mongo-server-ip" class="col-sm-2 col-form-label col-form-label-sm">Mongo Server IP</label>
+                    <div class="col-sm-10">
+                        <input 
+                        pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                        data-replace="[server_address]" type="text" class="form-control form-control-sm" id="mongo-server-ip" placeholder="XXX.XXX.XXX.XXX">
+                    </div>
+                </div>
+            </div>
+            <h6 class="row mx-0">Step 1: Login to Mongo Server</h6>
+            <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#ssh-to-server"></pre>
+                </div>
+            <h6 class="row mx-0">Step 2: Delete directory mongo_backup in loggned server outside of docker
+            </h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo rm -r ./mongo_backup</pre>
+            </div>
+            <h6 class="row mx-0">Step 3: Delete directory mongo_backup inside docker of container of
+                mongodb_1 of loggned server outside of docker</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo docker exec -it mongodb_1 rm -rf ./var/mongo_backup</pre>
+            </div>
+            <h6 class="row mx-0">Step 4: Dump mongodb to directory mongo_backup inside docker of container
+                of mongodb_1 of loggned server outside of docker</h6>
+                <div class="make-scroll-x row mx-0">
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo docker exec -it mongodb_1 mongodump --host localhost --port 27017 --db qualitymore --username root --password password --authenticationDatabase admin --out ./var/mongo_backup</pre>
+                </div>
+            <h6 class="row mx-0">Step 5: Copy directory mongo_backup out of container mongodb_1 to
+                ./mongo_backup</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo docker cp mongodb_1:./var/mongo_backup ./mongo_backup</pre>
+            </div>
+            <h6 class="row mx-0">Step 6: Exiting from Server</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">exit</pre>
+            </div>
+            <h6 class="row mx-0">Step 7: Delete directory ~/Documents/mongo_backup in local computer</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo rm -r ~/Documents/mongo_backup</pre>
+            </div>
+            <h6 class="row mx-0">Step 8: Download directory mongo_backup to ~/Documents/mongo_backup in
+                local computer</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#copy-from-mongo"></pre>
+            </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--mongo-backup-->
+
+      <div class="card mongodb-restore">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#mongodb-restore">
+          Steps to restore dumped mongodb database
+        </div>
+        <div id="mongodb-restore" class="collapse">
+          <div class="card-body">
+                <h6 class="row mx-0">Step 1: Specify which one is the server ip</h6>
+                <div class="bg-light-info sticky-top pb-3">
+                    <div class="px-1">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">DB Server IP</label>
+                        <div class="col-sm-10">
+                            <input 
+                            pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                            data-replace="[server_address]" type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="XXX.XXX.XXX.XXX">
+                        </div>
+                    </div>
+                </div>
+                <h6 class="row mx-0">Step 1: Upload downloaded mongo to server</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#mongo-backup-upload-backup"></pre>
+                </div>
+                <h6 class="row mx-0">Step 2: ssh login to server</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#ssh-to-server"></pre>
+                </div>
+                <h6 class="row mx-0">Step 3: Now restore database to mongodb_1 container</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">docker cp ./mongo_backup mongodb_1:/var && sudo docker exec -it mongodb_1 mongorestore --username root --password password --authenticationDatabase admin --nsFrom="qualitymore.*" --nsTo="qualitymore.*" ./var/mongo_backup</pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--mongodb-restore-->
+
+      <div class="card docker-ps-op-format">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#docker-ps-op-format">
+          Format output format of docker ps
+        </div>
+        <div id="docker-ps-op-format" class="collapse">
+          <div class="card-body">
+            <h6 class="row mx-0">Add this command script to ./bashrc or in ~/.zshrc in mac</h6>
+            <div tabindex="0" class="row mx-0" >
+                <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#docker-ps-op-formatter"></pre>
+            </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--docker-ps-op-format-->
+
+      <div class="card k8s-setup">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#k8s-setup">
+          K8s Setup Process
+        </div>
+        <div id="k8s-setup" class="collapse">
+          <div class="card-body">
+                <h6 class="row mx-0">Step 1: Add Address of Server</h6>
+                <div class="bg-light-info sticky-top pb-3">
+                    <div class="px-1">
+                        <label for="ss-server-ip" class="col-sm-2 col-form-label col-form-label-sm">Server IP</label>
+                        <div class="col-sm-10">
+                            <input 
+                            pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                            data-replace="[server_address]" type="text" class="form-control form-control-sm" id="ss-server-ip" placeholder="XXX.XXX.XXX.XXX">
+                        </div>
+                    </div>
+                </div>
+                <h6 class="row mx-0">Step 1.1: login to each server</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#ssh-to-server"></pre>
+                </div>
+                <h6 class="row mx-0">to switch to the pane Ctrl + b then ← →</h6>
+                <h6 class="row mx-0">Step 4: After each pane is ready with each server and synchronize all
+                    terminals with following steps</h6>
+                <h6 class="row mx-0">Ctrl + b then :<br />
+                    set synchronize-panes on
+                </h6>
+                <h6 class="row mx-0">Now all terminal is synchronized and login with each machine</h6>
+                <h6 class="row mx-0">Step 5: check system is fine to install Kubernetes because it need 64bit in
+                    the machine.</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">uname -m</pre>
+                </div>
+                <h6 class="row mx-0">Step 6: OS should have option to enable memory for cgroup. E.g. Ubuntu
+                    25.04.</h6>
+                <h6 class="row mx-0">Step 6: Better to turn off swaoff memory but kubernetes work without
+                    turning off swaoff memory too</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo swapoff -a</pre>
+                </div>
+                <h6 class="row mx-0">Step 7: Check swap memory is zero or not.</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">free -h</pre>
+                </div>
+                <h6 class="row mx-0">Step 8: Load kernel modules to all nodes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#load-kernel-module-to-all-nodes"></pre>
+                </div>
+                <h6 class="row mx-0">To check cgroup available</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">stat -fc %T /sys/fs/cgroup</pre>
+                </div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#check-cgroup"></pre>
+                </div>
+                <h6 class="row mx-0">Step 9: Set sysctl params to all nodes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#set-sysctl-param"></pre>
+                </div>
+                <h6 class="row mx-0">Step 10: And apply</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo sysctl --system</pre>
+                </div>
+                <h6 class="row mx-0">Step 11: Install container runtime (containerd) to all nodes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#install-containers-to-all-nodes"></pre>
+                </div>
+                <h6 class="row mx-0">Step 11.1: Reboot Master</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo reboot</pre>
+                </div>
+                <h6 class="row mx-0">Step 12: Setup to install kubeadm, kubelet, kubectl to all nodes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#install-ca-certificate"></pre>
+                </div>
+                <h6 class="row mx-0">Step 13: Open file to enable cgroup_enable (should be done in each machine
+                    one by one)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /boot/firmware/cmdline.txt</pre>
+                </div>
+                <h6 class="row mx-0">Step 13.1: and append to the file to enable cgroup_enable (should be done
+                    in each machine one by one)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 systemd.unified_cgroup_hierarchy=0</pre>
+                </div>
+                <h6 class="row mx-0">Step 13.1: Check whether if cgroup is enabled following command should show
+                    cpu and memory</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">cat /sys/fs/cgroup/cgroup.controllers</pre>
+                </div>
+                <h6 class="row mx-0">Step 13.1: (Optional) with Ubuntu 25.10 in Raspberry pi 5 to install kernel
+                    built with memory cgroup support</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#install-kerner-missing"></pre>
+                </div>
+                <h6 class="row mx-0">Step 13: Install kubeadm, kubelet, kubectl to all nodes and hold the
+                    version</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#install-kubeadm-kubelet-kubectl-to-all"></pre>
+                </div>
+                <h6 class="row mx-0">Step 13.2: Reboot all nodes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo reboot</pre>
+                </div>
+                <h6 class="row mx-0">Step 13: Once kubeadm, kubelet, kubectl to kubeadm then put following
+                    command to synchronize all terminal because only we need to make master operation</h6>
+                <h6 class="row mx-0">Ctrl + b then :<br />
+                    set synchronize-panes off
+                </h6>
+                <h6 class="row mx-0">Step 13.1: deleting all old files</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#delete-all-k8s-dirs"></pre>
+                </div>
+                <h6 class="row mx-0">Step 13.2: Flush iptables</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#flush-ip-table"></pre>
+                </div>
+                <h6 class="row mx-0">Step 14.1: Make config file for kubeadm arguments</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /home/ubuntu/kubeadm-config.yaml</pre>
+                </div>
+                <h6 class="row mx-0">Step 14.2: Paste the following content</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#kubeadm-arguement"></pre>
+                </div>
+                <h6 class="row mx-0">Step 14.3: initialize kubeadm and follow the instruction in the console
+                </h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo kubeadm init --config /home/ubuntu/kubeadm-config.yaml</pre>
+                </div>
+                <h6 class="row mx-0">Step 16: Specify where config directory can be locatedn (which is given in
+                    console)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#moving-config-to-home"></pre>
+                </div>
+                <h6 class="row mx-0">Step 17: Configure crictl to use containerd</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#config-crictl"></pre>
+                </div>
+                <h6 class="row mx-0">Step 18: Restart kubelet (And wait for some minutes)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo systemctl restart kubelet</pre>
+                </div>
+
+                <h6 class="row mx-0">Step 19: See status</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo crictl ps</pre>
+                </div>
+
+                <h6 class="row mx-0">Step 21.1: download kube-flannel.yml</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml</pre>
+                </div>
+
+                <h6 class="row mx-0">Step 21.2: Make calico not to bound nodes for dns outside like google.com
+                </h6>
+                <h6 class="row mx-0">Find kind: IPPool in calico.yaml file and place line inside spec section
+                </h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">ipipMode: "Never"</pre>
+                </div>
+
+                <h6 class="row mx-0">Step 21.3: Make calico to detect dns using wifi</h6>
+                <h6 class="row mx-0">kind: DaemonSet → spec.template.spec.containers → name: calico-node → env:
+                </h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#calico-config-for-ip-detect"></pre>
+                </div>
+
+                <h6 class="row mx-0">Step 17: Verify nodes after 1 minute</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl get nodes</pre>
+                </div>
+
+                <h6 class="row mx-0">Step 17.1: Remove pod in kubernetes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl delete pod -l app=&lt;pod name&gt;</pod></pre>
+                </div>
+
+                <h6 class="row mx-0">Reset Kubeadmin and kublet (additional if not working)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#reset-kubeadm-cni"></pre>
+                </div>
+                <h6 class="row mx-0">Get join command in master</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubeadm token create --print-join-command</pre>
+                </div>
+                <h6 class="row mx-0">To see all containerd status in static pod</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo crictl ps | egrep 'kube-apiserver|kube-controller-manager|kube-scheduler|etcd'</pre>
+                </div>
+                <h6 class="row mx-0">Give permission to all user for docker command</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo usermod -aG docker $USER</pre>
+                </div>
+                <h6 class="row mx-0">to check node not ready</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl describe node node-name | grep -A5 Conditions</pre>
+                </div>
+                <h6 class="row mx-0">To check all system pods are runing</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl get pods -A</pre>
+                </div>
+                <h6 class="row mx-0">To see old CNI network</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">ls -l /etc/cni/net.d</pre>
+                </div>
+                <h6 class="row mx-0">delete old CNI network</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl delete -f https://raw.githubusercontent.com/flannel-io/flannel/v0.25.4/Documentation/kube-flannel.yml</pre>
+                </div>
+                <h6 class="row mx-0">Clean CNI configs</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#clean-cni-configs"></pre>
+                </div>
+                <h6 class="row mx-0">Check node is ready</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl get nodes</pre>
+                </div>
+                <h6 class="row mx-0">To see pod crash issue</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl describe pod podId</pre>
+                </div>
+                <h6 class="row mx-0">To make teporary pod to check networking issue</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl run -it --rm debug --image=busybox --restart=Never -- sh</pre>
+                </div>
+                <h6 class="row mx-0">To change scaling of pod in kubernetes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl scale deployment <pod-deployment-name> --replicas=1</pre>
+                </div>
+                <h6 class="row mx-0">To see control page url</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl cluster-info</pre>
+                </div>
+                <h6 class="row mx-0">Additional Info of dependency order</h6>
+                <div class="row mx-0">
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#k8s-flow"></pre>
+                </div>
+                <h6 class="row mx-0">To see all existing ServiceAccounts in Kubernetes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl get sa -n &lt;namespace&gt;</pre>
+                </div>
+                <h6 class="row mx-0">To generate token for ServiceAccounts in Kubernetes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">kubectl create token &lt;serviceaccount-name&gt; --duration=1h</pre>
+                </div>
+                <h6 class="row mx-0">To list all services in given namespace in Kubernetes</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#list-all-services-in-k8s"></pre>
+                </div>
+                <h6 class="row mx-0">To see data is coming to tempo service</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">wget -qO- http://tempo-service:3100/metrics | grep tempo_distributor</pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--k8s-setup-->
+
+      <div class="card hadoop-setup-process">
+        <div class="card-header collapsed" data-bs-toggle="collapse" data-bs-target="#hadoop-setup-process">
+          Hadoop Installation Process
+        </div>
+        <div id="hadoop-setup-process" class="collapse">
+          <div class="card-body">
+                <h6 class="mx-0 blink">Before Starting this setup make sure you have all hosts listed in /etc/hosts in all machines</h6>
+                <div class="bg-light-info sticky-top pt-3 pb-1">
+                    <div class="px-1">
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Name Node IP</label>
+                            <div class="col-sm-10">
+                                <input 
+                                pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                                data-replace="[name-node-ip]" type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="XXX.XXX.XXX.XXX">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="data-node-ip" class="col-sm-2 col-form-label col-form-label-sm">Data Node IP</label>
+                            <div class="col-sm-10">
+                                <input 
+                                pattern="((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+                                data-replace="[data-node-ip]" type="text" class="form-control form-control-sm" id="data-node-ip" placeholder="XXX.XXX.XXX.XXX">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">JAVA_HOME Path</label>
+                            <div class="col-sm-10">
+                                <input data-replace="[java-home-path]" type="text" class="form-control form-control-sm" id="colFormLabelSm" placeholder="/usr/lib/jvm/">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="mx-0">Step 1: Install java to <span class="blink">&nbsp;all nodes</span>.</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-java-installation"></pre>
+                </div>
+                <h6 class="mx-0">Step 2: Generate Key in Master Node and copy to other node to allow ssh without password. (<span class="blink">Only in master</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-copy-key-to-data-nodes"></pre>
+                </div>
+                <h6 class="mx-0">Step 3: Download Hadoop to <span class="blink">&nbsp;all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-hadoop-download"></pre>
+                </div>
+                <h6 class="mx-0">Step 4: Run this command to get java path and Copy in <span class="blink">&nbsp;all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">readlink -f $(which java) | sed "s:bin/java::"</pre>
+                </div>
+                <h6 class="row mx-0">Step 4.1: Add Path to code Below so that command will be ready</h6>
+                <h6 class="mx-0">Step 5: Add variables below to ~/.bashrc file in <span class="blink">&nbsp;all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-variable-for-java-path""></pre>
+                </div>
+                <h6 class="mx-0">Step 6: Add variable to hadoop-env.sh for Java 17 in <span class="blink">&nbsp;all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-variable-to-java17""></pre>
+                </div>
+                <h6 class="mx-0">Step 8: Create Directories to <span class="blink">&nbsp;all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-mkdir-to-all-nodes"></pre>
+                </div>
+                <h6 class="mx-0">Step 7: Set Name Node location (<span class="blink">Only in master now</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano $HADOOP_HOME/etc/hadoop/core-site.xml</pre>
+                </div>
+                <p class="row mx-0">And add following config</>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-name-node-location"></pre>
+                </div>
+                <h6 class="mx-0">Step 9: Specify the data directories (<span class="blink">Only in master now</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml</pre>
+                </div>
+                <p class="row mx-0">And add following content</p>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-data-directories"></pre>
+                </div>
+                <h6 class="mx-0">Step 9.1: <span class="blink">Copy config files to all data nodes like follwing has sample for two nodes</span></h6>
+                <div tabindex="0" class="row mx-0">
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"  data-from="#hadoop-setup-config-copy"></pre>
+                </div>
+                <p class="mx-0">List all workers in workers file in hadoop (<span class="blink">Only in master</span>) </p>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano $HADOOP_HOME/etc/hadoop/workers</pre>
+                </div>
+                <h6 class="mx-0">Assign JAVA_HOME variable to <span class="blink">all nodes</span></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh</pre>
+                </div>
+                <h6 class="mx-0">Step 10: Format node in master (<span class="blink">Only one time in only master</span>)<br/>
+                <small><i class="blink">Note: if you want to reformat it then stop hadoop first and repeat step 8.</i></small></h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs namenode -format</pre>
+                </div>
+                <h6 class="mx-0">Step 11: Now Start Hadoop in Master (<span class="blink">Only in Master Node</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">start-dfs.sh</pre>
+                </div>
+                <h6 class="row mx-0">Step 12: See status in master</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">jps</pre>
+                </div>
+                <h6 class="mx-0">Step 13: Run following command to start data node (<span class="blink">Only in data node</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs --daemon start datanode</pre>
+                </div>
+                <h6 class="mx-0">Step 12: Run following command to see reports (<span class="blink">Only in Master node</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfsadmin -report</pre>
+                </div>
+                <h6 class="mx-0">Step 14: Any Failure see the report in Data Node (<span class="blink">Only in Data node</span>)</h6>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">tail -n 30 /usr/local/hadoop/logs/hadoop-ubuntu-namenode-*.log</pre>
+                </div>
+                <h6 class="row mx-0">Other commands for master</h6>
+                <div>To create directory to check in hdfs</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfs -mkdir -p /user/ubuntu/data</pre>
+                </div>
+                <div>Set maximum allowed size in hadoop</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfsadmin -setSpaceQuota 72g /</pre>
+                </div>
+                <div>To see maximum allowed size of directory in hadoop</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfs -count -q -h /shared/spark-logs</pre>
+                </div>
+                <div>To copy file to hdfs</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfs -put ./housing_data.json /shared/housing_data/</pre>
+                </div>
+                <div>To give permission for directory in hdfs</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code">hdfs dfs -chmod 777 /shared/spark-logs</pre>
+                </div>
+                <div>To to see file size contained by hdfs directory</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"> hdfs dfs -du -h /path/</pre>
+                </div>
+                <div>To see limited file content using hdfs</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#hdfs-limited-content"></pre>
+                </div>
+                <div>To upload file using namenode api</div>
+                <div tabindex="0" class="row mx-0" >
+                    <pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code" data-from="#upload-file-to-hdfs-using-namenode-api"></pre>
+                </div>
+          </div><!--card-body-->
+        </div>
+      </div> <!--hadoop-setup-process-->
+    </div> <!--main-content-->
+    <script src="bootstrap.bundle.min.js"></script>
+    <div style="display: none;">
+<pre id="upload-file-to-hdfs-using-namenode-api">curl -i -X PUT "http://[name-node-ip]:9870/jupyter_code/housing_data_etl.ipynb?op=CREATE&overwrite=true" \
+  -T housing_data_etl.ipynb</pre>
+<pre id="hdfs-limited-content">hdfs dfs -cat hdfs://[name-node-ip]:9000/shared/housing_data/* | head -n 10</pre>
+<pre id="copy-from-mongo">scp -r ubuntu@[server_address]:./mongo_backup ~/Documents/mongo_backup</pre>
+<pre id="scp-to-vpn-client">scp <b>[/path/to/local/file]</b> ubuntu@<b>[VPN Client IP]</b>:/home/ubuntu/QM.pem</pre>
+<pre id="ssh-to-vpn-client">ssh ubuntu@<b>[VPN Client IP]</b></pre>
+<pre id="ssh-to-server">ssh ubuntu@[server_address]</pre>
+<pre id="mongo-backup-upload-backup">scp -r ~/Documents/mongo_backup ubuntu@[server_address]:./mongo_backup</pre>
+<pre id="hadoop-setup-java-installation">sudo apt update
+sudo apt install openjdk-17-jdk ssh -y</pre>
+<pre id="hadoop-setup-config-copy">scp -r $HADOOP_HOME/etc/hadoop <b>[data-node-ip]</b>:$HADOOP_HOME/etc/</pre>
+<pre id="hadoop-setup-data-directories">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;1&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;file:///usr/local/hadoop/data/namenode&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+        &lt;value&gt;file:///usr/local/hadoop/data/datanode&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.webhdfs.enabled&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;</pre>
+<pre id="hadoop-setup-mkdir-to-all-nodes">sudo mkdir -p /usr/local/hadoop/data/namenode /usr/local/hadoop/data/datanode
+sudo chown -R ubuntu:ubuntu /usr/local/hadoop/data</pre>
+<pre id="hadoop-setup-name-node-location">cat &lt;&lt;EOF &gt; /usr/local/hadoop/etc/hadoop/core-site.xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://<b>[name-node-ip]</b>:9000&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+EOF
+</pre>
+<pre id="hadoop-setup-variable-to-java17">cat &lt;&lt;EOF &gt; /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+#!/bin/bash
+export JAVA_HOME=<b>[java-home-path]</b>
+export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+export HADOOP_OS_TYPE=\$(uname -s)
+export HADOOP_OPTS="\$HADOOP_OPTS --add-opens=java.base/java.lang=ALL-UNNAMED"
+EOF
+</pre>
+<pre id="hadoop-setup-variable-for-java-path">export JAVA_HOME=<b>[java-home-path]</b>
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</pre>
+<pre id="hadoop-setup-hadoop-download">wget https://dlcdn.apache.org/hadoop/common/hadoop-3.4.3/hadoop-3.4.3-aarch64.tar.gz
+sudo tar -xzvf hadoop-3.4.3-aarch64.tar.gz -C /usr/local/
+sudo mv /usr/local/hadoop-3.4.3 /usr/local/hadoop
+sudo chown -R ubuntu:ubuntu /usr/local/hadoop
+</pre>
+<pre id="hadoop-setup-copy-key-to-data-nodes">ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys
+ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@<b>[data-node-ip]</b></pre>
+<pre id="setup-hadoop-hosts-setup">#!/bin/bash
+set -e
+
+echo "=== CLEAN SLATE Hadoop setup START ==="
+
+# ----------------------------
+# 1. Delete old files (if exist)
+# ----------------------------
+sudo rm -f /usr/local/bin/hadoop-hosts-setup.sh
+sudo rm -f /etc/systemd/system/hadoop-hosts.service
+
+echo "✔ Old files removed"
+
+# ----------------------------
+# 2. Create fresh host script
+# ----------------------------
+sudo tee /usr/local/bin/hadoop-hosts-setup.sh > /dev/null &lt;&lt;'EOF'
+#!/bin/bash
+
+HOSTS_FILE="/etc/hosts"
+
+# you can list more hosts here
+HOSTS=(
+<b>[host-lists]</b>
+)
+
+# Remove all old entries dynamically
+for entry in "${HOSTS[@]}"; do
+    ip=$(echo "$entry" | awk '{print $1}')
+    hostname=$(echo "$entry" | awk '{print $2}')
+    sudo sed -i "/$ip $hostname/d" "$HOSTS_FILE"
+done
+
+# Append fresh clean block (single source of truth)
+{
+for entry in "${HOSTS[@]}"; do
+    echo "$entry"
+done
+} | sudo tee -a "$HOSTS_FILE" > /dev/null
+
+EOF
+
+sudo chmod +x /usr/local/bin/hadoop-hosts-setup.sh
+
+echo "✔ New host script created"
+
+# ----------------------------
+# 3. Create fresh systemd service
+# ----------------------------
+sudo tee /etc/systemd/system/hadoop-hosts.service > /dev/null &lt;&lt;EOF
+[Unit]
+Description=Hadoop Hosts Setup (Clean Slate)
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/hadoop-hosts-setup.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "✔ New systemd service created"
+
+# ----------------------------
+# 4. Reload systemd + enable
+# ----------------------------
+sudo systemctl daemon-reload
+sudo systemctl enable hadoop-hosts.service
+sudo systemctl restart hadoop-hosts.service
+
+echo "=== CLEAN SLATE Hadoop setup DONE ==="
+</pre>
+<pre id="check-cgroup">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF</pre>
+<pre id="set-sysctl-param">cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward = 1
+EOF</pre>
+<pre id="install-ca-certificate">sudo apt install -y ca-certificates curl gpg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key \
+| sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /" \
+| sudo tee /etc/apt/sources.list.d/kubernetes.list
+</pre>
+<pre id="install-kerner-missing">sudo apt update
+sudo apt install --reinstall linux-image-raspi linux-headers-raspi</pre>
+<pre id="install-kubeadm-kubelet-kubectl-to-all">sudo apt update
+sudo apt install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl</pre>
+<pre id="install-containers-to-all-nodes">sudo apt update
+sudo apt install -y containerd
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' \
+/etc/containerd/config.toml
+sudo systemctl restart containerd
+sudo systemctl enable containerd
+containerd --version</pre>
+<pre id="delete-all-k8s-dirs">sudo rm -rf \
+  /etc/kubernetes \
+  /var/lib/etcd \
+  /var/lib/kubelet \
+  /etc/cni/net.d \
+  /var/lib/cni \
+  ~/.kube</pre>
+<pre id="flush-ip-table">sudo iptables -F
+sudo iptables -t nat -F
+sudo iptables -t mangle -F
+sudo iptables -X</pre>
+<pre id="kubeadm-arguement">apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+nodeRegistration:
+  criSocket: unix:///run/containerd/containerd.sock
+  kubeletExtraArgs:
+    - name: feature-gates
+      value: "NodeSwap=true"
+    - name: fail-swap-on
+      value: "false"
+    - name: node-status-update-frequency
+      value: "1m"
+
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+networking:
+  podSubnet: "10.244.0.0/16"</pre>
+<pre id="moving-config-to-home">mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</pre>
+<pre id="calico-config-for-ip-detect">- name: IP_AUTODETECTION_METHOD
+          value: "interface=^wlan0$"</pre>
+<pre id="reset-kubeadm-cni">sudo kubeadm reset -f
+sudo rm -rf /var/lib/etcd /etc/cni/net.d /var/lib/cni ~/.kube
+</pre>
+<pre id="load-kernel-module-to-all-nodes">sudo modprobe overlay
+sudo modprobe br_netfilter</pre>
+<pre id="docker-ps-op-formatter">docker() {
+    if [ "$1" = "ps" ]; then
+        command docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.CreatedAt}}'
+    else
+        command docker "$@"
+    fi
+}</pre>
+<pre id="clean-cni-configs">sudo rm -rf /etc/cni/net.d/*
+sudo systemctl restart containerd kubelet</pre>
+<pre id="start-svc-n-timer">sudo systemctl daemon-reload
+sudo systemctl restart wg_check.service
+sudo systemctl enable --now wg_check.timer
+sudo systemctl restart wg_check.timer</pre>
+<pre id="wg-checker-timer">[Unit]
+Description=Run WireGuard handshake check every 1 minute
+
+[Timer]
+OnBootSec=10s      
+OnUnitActiveSec=60s
+AccuracySec=1s
+Unit=wg_check.service
+
+[Install]
+WantedBy=timers.target</pre>
+<pre id="config-crictl">sudo tee /etc/crictl.yaml >/dev/null &lt;&lt;EOF
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 10
+debug: false
+EOF</pre>
+<pre id="k8s-flow">etcd
+  ↓
+kube-apiserver
+  ↓
+kube-scheduler
+kube-controller-manager
+kube-proxy</pre>
+<pre id="list-all-services-in-k8s">curl -k -H "Authorization: Bearer &lt;TOKEN&gt;" \
+     http://<ip-of-control-pane>:6443/api/v1/namespaces/default/services</pre>
+<pre id="wireguard-connection-checking-svc">[Unit]
+Description=Run WireGuard handshake check
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ubuntu
+User=root
+ExecStart=/bin/bash -c '/home/ubuntu/wg_handshake_check.sh 2>&1 | tee -a /home/ubuntu/wg_check.log;'</pre>
+<pre id="delete-old-logs">/home/ubuntu/wg_check.log {
+    daily
+    rotate 3
+    maxage 3
+    missingok
+    notifempty
+    create 0644 ubuntu ubuntu
+}</pre>
+<pre id="wg-script-for-vpn">#!/bin/bash
+RED='\033[0;31m'          # Red
+GREEN='\033[0;32m'        # Green
+YELLOW='\033[0;33m'       # Yellow
+RM_BOLD='\033[0m'        # Remove Bold
+NC='\033[0m' # No Color
+PEER_IP="10.0.0.1"
+_VPN_SERVER_ADDR=<b>"[vpn-server-ip]"</b>
+_VPN_CLIENT_NAME="rspi58gb"
+
+sudo apt-get update
+sudo apt-get install -y wireguard
+
+if ping -c 1 -W 1 "$PEER_IP" >/dev/null 2>&1; then
+        echo -e "${GREEN}✓$(date) - VPN OK:  reachable${NC}"
+else
+        echo -e "${YELLOW}$(date) - VPN is Down: Trying to establish the connection with $PEER_IP.${NC}"
+        wg genkey | tee /home/ubuntu/client_private.key | wg pubkey > /home/ubuntu/client_public.key
+        sudo chmod 400 /home/ubuntu/QM.pem
+        conf_fileName="${_VPN_CLIENT_NAME}.conf"
+cat &lt;&lt;EOF &gt; /home/ubuntu/$conf_fileName
+[Interface]
+PrivateKey = $(sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} sudo cat /home/ubuntu/server_private.key | xargs)
+Address = 10.0.0.1/24
+ListenPort = 51820
+MTU = 1280
+
+[Peer]
+PublicKey = $(sudo cat /home/ubuntu/client_public.key | xargs)
+AllowedIPs = 10.0.0.2/32
+EOF
+sudo scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem $conf_fileName ubuntu@${_VPN_SERVER_ADDR}:/tmp/
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} \
+"sudo mv /tmp/$conf_fileName /etc/wireguard/ && sudo chown root:root /etc/wireguard/$conf_fileName && sudo chmod 600 /etc/wireguard/$conf_fileName"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl daemon-reload"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl enable wg-quick@$_VPN_CLIENT_NAME"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl restart wg-quick@$_VPN_CLIENT_NAME"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo sysctl -w net.ipv4.ip_forward=1
+echo 'net.ipv4.ip_forward=1' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+# for handshaking of Masquerade all VPN tunnel traffic
+sudo iptables -t nat -A POSTROUTING -o ${_VPN_CLIENT_NAME} -j MASQUERADE
+
+# Forward TCP ports except 22 (SSH) and 88 (python server) to vpn
+sudo iptables -t nat -A PREROUTING -i ens5 -p tcp -m multiport ! --dports <b>[vpn-server-port-not-to-forward]</b> -j DNAT --to-destination 10.0.0.2
+
+# Forward UDP ports except 51820 (WireGuard) to vpn
+sudo iptables -t nat -A PREROUTING -i ens5 -p udp ! --dport 51820 -j DNAT --to-destination 10.0.0.2
+
+# alloq all Masquerade return traffic from vpn to browser
+sudo iptables -t nat -A POSTROUTING -s 10.0.0.2/32 -o ens5 -j MASQUERADE"
+sudo cat &lt;&lt;EOF &gt; /tmp/vpn_client.conf
+[Interface]
+PrivateKey = $(sudo cat /home/ubuntu/client_private.key | xargs)
+Address = 10.0.0.2/24
+MTU = 1280
+
+[Peer]
+# EC2
+PublicKey = $(sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} sudo cat /home/ubuntu/server_public.key | xargs)
+Endpoint = ${_VPN_SERVER_ADDR}:51820
+AllowedIPs = 10.0.0.0/24, 192.168.1.0/24, fd00::/64
+PersistentKeepalive = 25
+EOF
+sudo mv /tmp/vpn_client.conf /etc/wireguard/ && sudo chown root:root /etc/wireguard/vpn_client.conf && sudo chmod 600 /etc/wireguard/vpn_client.conf
+sudo systemctl daemon-reload
+sudo systemctl enable wg-quick@vpn_client
+sudo systemctl restart wg-quick@vpn_client
+fi</pre>
+<pre id="enable-wireguard">sudo systemctl daemon-reload
+sudo systemctl enable wg-quick@vpn_client
+sudo systemctl restart wg-quick@vpn_client</pre>
+<pre id="create-vpn-client-config">sudo cat &lt;&lt;EOF &gt; /tmp/vpn_client.conf
+[Interface]
+PrivateKey = $(sudo cat /home/ubuntu/client_private.key | xargs)
+Address = 10.0.0.2/24
+MTU = 1280
+
+[Peer]
+# EC2
+PublicKey = $(sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} sudo cat /home/ubuntu/server_public.key | xargs)
+Endpoint = ${_VPN_SERVER_ADDR}:51820
+AllowedIPs = 10.0.0.0/24, 192.168.1.0/24, fd00::/64
+PersistentKeepalive = 25
+EOF</pre>
+<pre id="forward-traffic-to-vpn-client">sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo sysctl -w net.ipv4.ip_forward=1
+echo 'net.ipv4.ip_forward=1' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+# for handshaking of Masquerade all VPN tunnel traffic
+sudo iptables -t nat -A POSTROUTING -o ${_VPN_CLIENT_NAME} -j MASQUERADE
+
+# Forward TCP ports except 22 (SSH) and 88 (python server) to vpn
+sudo iptables -t nat -A PREROUTING -i ens5 -p tcp -m multiport ! --dports <b>[vpn-server-port-not-to-forward]</b> -j DNAT --to-destination 10.0.0.2
+
+# Forward UDP ports except 51820 (WireGuard) to vpn
+sudo iptables -t nat -A PREROUTING -i ens5 -p udp ! --dport 51820 -j DNAT --to-destination 10.0.0.2
+
+# alloq all Masquerade return traffic from vpn to browser
+sudo iptables -t nat -A POSTROUTING -s 10.0.0.2/32 -o ens5 -j MASQUERADE"</pre>
+<pre id="enable-vpn-server-for-new-connection">sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl daemon-reload"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl enable wg-quick@$_VPN_CLIENT_NAME"
+sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} "sudo systemctl restart wg-quick@$_VPN_CLIENT_NAME"
+</pre>
+<pre class="allow-copy" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Click to copy code"
+            id="move-config-to-vpn-server">sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} \
+"sudo mv /tmp/$conf_fileName /etc/wireguard/ && sudo chown root:root /etc/wireguard/$conf_fileName && sudo chmod 600 /etc/wireguard/$conf_fileName"</pre>
+<pre id="config-for-server-for-new-client">conf_fileName="${_VPN_CLIENT_NAME}.conf"
+cat &lt;&lt;EOF &gt; /home/ubuntu/$conf_fileName
+[Interface]
+PrivateKey = $(sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} sudo cat /home/ubuntu/server_private.key | xargs)
+Address = 10.0.0.1/24
+ListenPort = 51820
+MTU = 1280
+
+[Peer]
+PublicKey = $(sudo cat /home/ubuntu/client_public.key | xargs)
+AllowedIPs = 10.0.0.2/32
+EOF</pre>
+<pre id="install-wireguard">sudo apt-get update
+sudo apt-get install -y wireguard</pre>
+<pre id="vpn-address-exporter-client">grep -q '^export _VPN_CLIENT_NAME=' ~/.bashrc && \
+sed -i 's/^export _VPN_CLIENT_NAME=.*/export _VPN_CLIENT_NAME="<b>[VPN Client Name Only with alphanumeric]</b>"/' ~/.bashrc || \
+echo 'export _VPN_CLIENT_NAME="<b>[VPN Client Name Only with alphanumeric]</b>"' >> ~/.bashrc</pre>
+<pre id="vpn-address-exporter">grep -q '^export _VPN_SERVER_ADDR=' ~/.bashrc && \
+sed -i 's/^export _VPN_SERVER_ADDR=.*/export _VPN_SERVER_ADDR="<b>[VPN Server IP]</b>"/' ~/.bashrc || \
+echo 'export _VPN_SERVER_ADDR="<b>[VPN Server IP]</b>"' >> ~/.bashrc</pre>
+<pre id="new-kernel">sudo apt update
+sudo apt install --reinstall linux-image-raspi linux-headers-raspi</pre>
+<pre id="resolved">sudo tee /etc/systemd/resolved.conf.d/adguardhome.conf &lt;&lt;EOF
+[Resolve]
+DNS=127.0.0.1
+DNSStubListener=no
+EOF
+</pre>
+<pre id="netplan-source">network:
+  version: 2
+  wifis:
+    wlan0:
+      optional: true
+      <b>dhcp4: false
+      addresses:
+        - [server-static-ip]/24
+      gateway4: 192.168.0.1
+      nameservers:
+        addresses:
+          - 192.168.0.4
+          - 192.168.0.1</b>
+      regulatory-domain: "US"
+      access-points:
+        "Wifi Name":
+          auth:
+            key-management: "psk"
+            password: "encrypted password"
+</pre>
+<pre id="clean-cni-configs-dd">sudo nano /etc/systemd/resolved.conf</pre>
+<p>Make only changes to</p>
+<pre id="clean-cni-configs-344">[Resolve]
+DNSStubListener=no</pre>
+    </div>
+  </body>
+  <script>
+// 1. Initialize all tooltips on the page
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+
+  const copyElements = document.querySelectorAll('.allow-copy');
+
+  copyElements.forEach(element => {
+    element.addEventListener('click', function() {
+      const text = this.innerText;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const tooltip = bootstrap.Tooltip.getInstance(this);
+        if (tooltip) {
+            this.style.color = '#117446';
+            this.style.background = '#e0f4de';
+            // Change content and show it immediately
+            tooltip.setContent({ '.tooltip-inner': 'Copied!' });
+            tooltip.show();
+
+            // Reset text back to original after 1.5 seconds
+            setTimeout(() => {
+            tooltip.setContent({ '.tooltip-inner': 'Click to copy' });
+            // Optional: hide it if the user isn't hovering anymore
+            }, 1500);
+        }
+      });
+    });
+  });
+</script>
+<script>
+    const copyContent = function (selector){
+        const displayElements = selector?selector.querySelectorAll('[data-from]'):document.querySelectorAll('[data-from]');
+        displayElements.forEach(displayArea => {
+            const sourceId = displayArea.getAttribute('data-from');
+            const sourceElement = document.querySelector(sourceId);
+            if (sourceElement) {
+                let replaced= '';
+                if(selector) {
+                    replaced = sourceElement.innerHTML;
+                    const textInputs = selector.querySelectorAll('input');
+                    const inputValueList = {};
+                    textInputs.forEach(input => {
+                        if(input.value) {
+                            const dataReplace = input.getAttribute("data-replace");
+                            if(input.value) {
+                                if(!inputValueList[dataReplace]) {
+                                    inputValueList[dataReplace] = [];
+                                }
+                                inputValueList[dataReplace].push(input.value);
+                            }
+
+                        }
+                    });
+                    for (let key in inputValueList) {
+                        replaced = replaced.replaceAll(key, inputValueList[key].join(",\n"));
+                    }
+
+                } else {
+                     replaced = sourceElement.innerHTML;
+                }
+                displayArea.innerHTML = replaced;
+            }
+        });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        copyContent();
+    });
+    
+    document.addEventListener('input', function (event) {
+        if (event.target.matches('input')) {
+            const input = event.target;
+            if (input.checkValidity()) {
+                input.classList.add('is-valid');
+                input.classList.remove('is-invalid');
+                const parentCard = input.closest('.card');
+                copyContent(parentCard);
+            } else {
+                input.classList.add('is-invalid');
+                input.classList.remove('is-valid');
+            }
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (event.target.matches("[data-remove]")) {
+            const className = event.target.getAttribute("data-remove");
+
+            // find the closest parent to remove
+            const item = event.target.closest("* " + className);
+
+            if (item) {
+            item.remove();
+            }
+        }
+    });
+
+    document.querySelectorAll("[data-duplicate]").forEach(button => {
+        button.addEventListener("click", function () {
+            const className = this.getAttribute("data-duplicate");
+
+            const items = this.closest('.card').querySelectorAll(className);
+            const original = items[items.length - 1];
+
+            const clone = original.cloneNode(true);
+
+            if (clone) clone.value = "";
+            // Optional: clear input value
+            const input = clone.querySelector("input");
+            if (input) input.value = "";
+            const deleteBtn = clone.querySelector('button');
+            if (deleteBtn) {
+                deleteBtn.disabled = false; // Vanilla JS fix
+            }
+
+            // Append to container
+            original.closest("*:not("+className+")").appendChild(clone);
+        });
+    });
+
+</script>
+</html>

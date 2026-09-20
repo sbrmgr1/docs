@@ -1,0 +1,48 @@
+.card {
+    margin-bottom: 15px;
+}
+.card-header {
+    cursor: pointer;
+    font-weight: bold;
+}
+.card-header:not(.collapsed) {
+    background-color: #117446; /* Example: Bootstrap Blue */
+    color: white;
+    cursor: pointer;
+}
+
+.col-form-label {
+    font-weight: bold;
+}
+
+pre {
+    padding: 0;
+    background: #f3dede;
+    color: #a10707;
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid;
+    display: block;
+}
+.make-scroll-x {
+    overflow-x: auto;
+}
+.brand-logo {
+    height: 30px;
+    width: auto;
+}
+.blink {
+      animation: blinkColors 1s infinite;
+}
+
+@keyframes blinkColors {
+    0%   { color: red; }
+    50%  { color: rgb(255, 234, 0); }
+    100% { color: red; }
+}
+.bg-light-info {
+    background: #d8f9ff;
+    border-radius: 5px;
+    border: 1px solid #3ce1ff;
+}
