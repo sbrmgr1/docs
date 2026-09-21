@@ -1647,6 +1647,7 @@ NC='\033[0m' # No Color
 PEER_IP="10.0.0.1"
 _VPN_SERVER_ADDR=<b>"[vpn-server-ip]"</b>
 _VPN_CLIENT_NAME="rspi58gb"
+conf_fileName="${_VPN_CLIENT_NAME}.conf"
 
 sudo apt-get update
 sudo apt-get install -y wireguard
@@ -1657,7 +1658,6 @@ else
         echo -e "${YELLOW}$(date) - VPN is Down: Trying to establish the connection with $PEER_IP.${NC}"
         wg genkey | tee /home/ubuntu/client_private.key | wg pubkey > /home/ubuntu/client_public.key
         sudo chmod 400 /home/ubuntu/QM.pem
-        conf_fileName="${_VPN_CLIENT_NAME}.conf"
 cat &lt;&lt;EOF &gt; /home/ubuntu/$conf_fileName
 [Interface]
 PrivateKey = $(sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /home/ubuntu/QM.pem ubuntu@${_VPN_SERVER_ADDR} sudo cat /home/ubuntu/server_private.key | xargs)
