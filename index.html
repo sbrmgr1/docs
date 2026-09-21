@@ -290,7 +290,7 @@
                                 <div class="col-sm-10">
                                     <input 
                                     pattern="^(\d+)(,\d+)*$"
-                                    data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,88,50">
+                                    data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,51820,50">
                                 </div>
                             </div>
                         </div>
@@ -457,7 +457,7 @@
                             <div class="col-sm-10">
                                 <input 
                                 pattern="^(\d+)(,\d+)*$"
-                                data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,88,50">
+                                data-replace="[vpn-server-port-not-to-forward]" type="text" class="form-control form-control-sm" id="vpn-server-port-not-to-forward" placeholder="22,51820,50">
                             </div>
                         </div>
                     </div>
@@ -1682,7 +1682,7 @@ sudo sysctl -p
 # for handshaking of Masquerade all VPN tunnel traffic
 sudo iptables -t nat -A POSTROUTING -o ${_VPN_CLIENT_NAME} -j MASQUERADE
 
-# Forward TCP ports except 22 (SSH) and 88 (python server) to vpn
+# Forward TCP ports except 22 (SSH) and 50 (python server) to vpn
 sudo iptables -t nat -A PREROUTING -i ens5 -p tcp -m multiport ! --dports <b>[vpn-server-port-not-to-forward]</b> -j DNAT --to-destination 10.0.0.2
 
 # Forward UDP ports except 51820 (WireGuard) to vpn
@@ -1731,7 +1731,7 @@ sudo sysctl -p
 # for handshaking of Masquerade all VPN tunnel traffic
 sudo iptables -t nat -A POSTROUTING -o ${_VPN_CLIENT_NAME} -j MASQUERADE
 
-# Forward TCP ports except 22 (SSH) and 88 (python server) to vpn
+# Forward TCP ports except 22 (SSH) and 50 (python server) to vpn
 sudo iptables -t nat -A PREROUTING -i ens5 -p tcp -m multiport ! --dports <b>[vpn-server-port-not-to-forward]</b> -j DNAT --to-destination 10.0.0.2
 
 # Forward UDP ports except 51820 (WireGuard) to vpn
